@@ -22,7 +22,7 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: Create Databases
-      run: |
+      run: 
         mkdir -p database
         touch database/easy_saas.sqlite
         touch database/easy_saas_test.sqlite
