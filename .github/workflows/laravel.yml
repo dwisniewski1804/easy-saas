@@ -22,12 +22,13 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: Create Databases
-      run: 
+      run:
         mkdir -p database
         touch database/easy_saas.sqlite
         touch database/easy_saas_test.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite
+        DB_NAME: database/easy_saas_test.sqlite
         DB_DATABASE: database/easy_saas_test.sqlite
       run: vendor/bin/phpunit

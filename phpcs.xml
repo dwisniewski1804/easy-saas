@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="PHP_CodeSniffer">
-    <description>The coding standard for our project.</description>
+    <description>The coding standard for the EASY-SAAS project.</description>
     <rule ref="PSR2"/>
 
     <file>app</file>
