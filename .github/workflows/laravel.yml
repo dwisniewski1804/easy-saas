@@ -18,8 +18,14 @@ jobs:
           MAX_ALLOWED_PACKET: 16M
         ports:
           - 3306:3307
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=15s --health-retries=3
     steps:
+      - name: Verify MySQL connection from host
+        run: |
+          echo "${{ toJson(job) }}"
+          sudo apt-get install -y mysql-client
+          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -psecret -e "SHOW DATABASES"
+          docker logs "${{ job.services.mysql.id }}"
       - uses: actions/checkout@v2
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
