@@ -25,7 +25,7 @@ jobs:
           echo "${{ toJson(job) }}"
           sudo apt-get install -y mysql-client
           sudo ufw disable
-          mysql --host mysql --port 13306 -uroot -psecret -e "SHOW DATABASES"
+          mysql --host localhost --port 13306 -uroot -psecret -e "SHOW DATABASES"
           docker logs "${{ job.services.mysql.id }}"
       - uses: actions/checkout@v2
       - name: Copy .env
