@@ -23,9 +23,8 @@ jobs:
       run: chmod -R 777 storage bootstrap/cache
     - name: Create Databases
       run: |
-        mkdir -p easy_saas
+        mkdir -p database
         touch database/easy_saas.sqlite
-        mkdir -p easy_saas_test
         touch database/easy_saas_test.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
