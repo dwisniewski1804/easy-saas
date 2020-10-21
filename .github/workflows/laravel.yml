@@ -17,7 +17,7 @@ jobs:
           MYSQL_DATABASE: easy_saas_test
           MAX_ALLOWED_PACKET: 16M
         ports:
-          - 1336:3306
+          - 13306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=15s --health-retries=3
     steps:
       - name: Verify MySQL connection from host
