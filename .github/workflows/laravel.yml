@@ -13,6 +13,7 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
+          MYSQL_PASSWORD: secret
           MYSQL_ROOT_PASSWORD: secret
           MYSQL_DATABASE: easy_saas_test
           MAX_ALLOWED_PACKET: 16M
