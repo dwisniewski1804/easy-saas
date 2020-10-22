@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Admin;
+namespace App\Domains\Admin\Services;
 
 use App\Domains\Admin\Models\CreateUserModel;
 use App\Repository\UserRepository;

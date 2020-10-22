@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\User;
 
-use App\Domains\Admin\UserCreator;
+use App\Domains\Admin\Services\UserCreator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -33,7 +33,7 @@ class CreateUserController extends Controller
             return new JsonResponse(
                 [
                     'message' => 'Validation error',
-                    'data' => ['errors' => []],
+                    'data' => ['errors' => $e->errors()],
                 ],
                 Response::HTTP_BAD_REQUEST
             );
