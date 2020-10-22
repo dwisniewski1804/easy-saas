@@ -38,6 +38,7 @@ jobs:
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
           DB_CONNECTION: mysql
+          DB_PORT: 13306
           DB_DATABASE: easy_saas_test
           DB_PASSWORD: secret
         run: vendor/bin/phpunit
