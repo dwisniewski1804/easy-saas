@@ -29,8 +29,8 @@ jobs:
 #          sudo /etc/init.d/mysql restart --skip-grant-tables
 #          sudo mysqld FLUSH PRIVILEGES
 #          sudo mysqld ALTER USER 'root'@'localhost' IDENTIFIED BY 'secret'
-           docker logs "${{ job.services.mysql.id }}"
-           mysql --host 127.0.0.1 --port 13306 -uroot -p -e "SHOW DATABASES"
+          docker logs "${{ job.services.mysql.id }}"
+          mysql --host 127.0.0.1 --port 13306 -uroot -p -e "SHOW DATABASES"
       - uses: actions/checkout@v2
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
