@@ -3,6 +3,7 @@
 namespace App\Domains\Admin\Services;
 
 use App\Domains\Admin\Models\CreateUserModel;
+use App\Models\User;
 use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -19,7 +20,7 @@ class UserCreator
     /**
      * @throws ValidationException
      */
-    public function create(Request $request)
+    public function create(Request $request): User
     {
         $model = new CreateUserModel($request);
 

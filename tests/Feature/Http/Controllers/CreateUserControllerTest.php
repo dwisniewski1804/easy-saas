@@ -16,12 +16,11 @@ class CreateUserControllerTest extends TestCase
      */
     public function testIfItCanCreateUser(): void
     {
-        $this->withExceptionHandling();
         $this->withoutExceptionHandling();
         $this->post('admin/user', [
             'email' => 'contact@dwisniewski.com',
             'name' => 'dwisniewski',
-            'password' => 'Example123#']);
+            'password' => 'Example123@']);
 
         $count = User::all()->count();
         self::assertEquals(1, $count);

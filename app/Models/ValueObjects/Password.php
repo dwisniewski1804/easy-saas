@@ -15,7 +15,7 @@ class Password
     {
         $this->validator = new PasswordValidator($value);
 
-        if ($this->checkStrength()) {
+        if (!$this->checkStrength()) {
             throw new NotStrongEnoughPasswordException($this->validator);
         }
 
@@ -26,7 +26,7 @@ class Password
     {
         $errors = $this->validator->validate();
 
-        return count($errors);
+        return count($errors) === 0;
     }
 
     public function getEncoded(): string

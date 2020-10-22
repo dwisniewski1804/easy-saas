@@ -39,6 +39,8 @@ jobs:
         run: ./vendor/bin/phpcs -w
       - name: Run PHP Mess Detector
         run: ./vendor/bin/phpmd app/ text ruleset.xml
+      - name: Run php stan
+        run: vendor/bin/phpstan analyse app tests --level max
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
           DB_CONNECTION: mysql

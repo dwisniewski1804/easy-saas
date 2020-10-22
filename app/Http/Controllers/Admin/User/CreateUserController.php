@@ -24,7 +24,7 @@ class CreateUserController extends Controller
         $this->userCreator = $creator;
     }
 
-    public function create(Request $request)
+    public function create(Request $request): Response
     {
         try {
             $this->validate($request, $this->rules);

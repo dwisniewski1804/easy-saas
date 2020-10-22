@@ -1,0 +1,7 @@
+parameters:
+    excludes_analyse:
+            - app/Providers
+    ignoreErrors:
+            - '#Method App\Models\ValueObjects\Validation\PasswordValidator::errors\(\) should return Illuminate\Support\MessageBag but returns Illuminate\Contracts\Support\MessageBag.#'
+
+    checkMissingIterableValueType: false
