@@ -1,4 +1,4 @@
-name: Laravel
+name: Easy-saas
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  laravel-tests:
+  easy-saas-tests:
     runs-on: ubuntu-latest
     services:
       mysql:
@@ -37,6 +37,8 @@ jobs:
         run: sudo /etc/init.d/mysql start
       - name: Run Code Sniffer for code standards checks
         run: ./vendor/bin/phpcs -w
+      - name: Run PHP Mess Detector
+        run: ./vendor/bin/phpmd app/ text ruleset.xml
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
           DB_CONNECTION: mysql
