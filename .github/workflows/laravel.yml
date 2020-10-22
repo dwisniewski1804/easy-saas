@@ -27,8 +27,8 @@ jobs:
           sudo apt-get install -y mysql-client
           sudo ufw disable
           sudo /etc/init.d/mysql restart --skip-grant-tables
-          mysql FLUSH PRIVILEGES
-          mysql ALTER USER 'root'@'localhost' IDENTIFIED BY 'secret'
+          mysqld FLUSH PRIVILEGES
+          mysqld ALTER USER 'root'@'localhost' IDENTIFIED BY 'secret'
           mysql --host 127.0.0.1 --port 13306 -uroot -psecret -e "SHOW DATABASES"
           docker logs "${{ job.services.mysql.id }}"
       - uses: actions/checkout@v2
