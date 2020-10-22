@@ -11,26 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:5.7
+        image: mysql:8.0
         env:
-          MYSQL_PASSWORD: secret
           MYSQL_ROOT_PASSWORD: secret
           MYSQL_DATABASE: easy_saas_test
           MAX_ALLOWED_PACKET: 16M
         ports:
-          - 13306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=15s --health-retries=3
+          - '13306:3306'
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - name: Verify MySQL connection from host
         run: |
           echo "${{ toJson(job) }}"
-          sudo apt-get install -y mysql-client
-          docker logs "${{ job.services.mysql.id }}"
-          sudo ufw disable
-          sudo mysqld --skip-grant-tables
-          sudo mysqld FLUSH PRIVILEGES
-          sudo mysqld ALTER USER 'root'@'localhost' IDENTIFIED BY 'secret'
-          mysql --host 127.0.0.1 --port 13306 -uroot -psecret -e "SHOW DATABASES"
+          mysql --host 127.0.0.1 --port 13306 -uroot -psecret -e "CREATE DATABASE IF NOT EXISTS easy_saas_test;"
       - uses: actions/checkout@v2
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
