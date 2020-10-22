@@ -35,6 +35,8 @@ jobs:
         run: chmod -R 777 storage bootstrap/cache
       - name: Start mysql service
         run: sudo /etc/init.d/mysql start
+      - name: Run Code Sniffer for code standards checks
+        run: ./vendor/bin/phpcs -w
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
           DB_CONNECTION: mysql
