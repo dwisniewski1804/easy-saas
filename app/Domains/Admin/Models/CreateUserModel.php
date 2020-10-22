@@ -52,7 +52,7 @@ class CreateUserModel implements \Serializable, ValidatableInterface, Transforma
 
     public function unserialize($serialized)
     {
-        // TODO: Implement unserialize() method.
+        return unserialize($serialized, []);
     }
 
     public function transformToModel(): User

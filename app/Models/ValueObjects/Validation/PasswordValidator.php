@@ -4,6 +4,8 @@ namespace App\Models\ValueObjects\Validation;
 
 use Illuminate\Contracts\Support\MessageBag;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Fluent;
+use Illuminate\Support\MessageBag as MessageBagConcrete;
 
 class PasswordValidator implements Validator
 {
@@ -13,7 +15,7 @@ class PasswordValidator implements Validator
 
     public function __construct(string $value)
     {
-        $this->errors = new \Illuminate\Support\MessageBag();
+        $this->errors = new MessageBagConcrete();
         $this->value = $value;
     }
 
@@ -60,12 +62,21 @@ class PasswordValidator implements Validator
 
     public function sometimes($attribute, $rules, callable $callback)
     {
-        // TODO: Implement sometimes() method.
+        $payload = new Fluent($this->value);
+
+        if ($callback($payload)) {
+            foreach ((array) $attribute as $key) {
+                $this->errors->add($key, $rules);
+            }
+        }
+
+        return $this;
     }
 
     public function after($callback)
     {
-        // TODO: Implement after() method.
+        $callback();
+        return $this;
     }
 
     public function errors(): MessageBag
