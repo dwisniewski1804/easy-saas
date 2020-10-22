@@ -4,15 +4,16 @@ namespace App\Models\ValueObjects\Validation;
 
 use Illuminate\Contracts\Support\MessageBag;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Fluent;
 use Illuminate\Support\MessageBag as MessageBagConcrete;
 
 class PasswordValidator implements Validator
 {
-    private const MINIMUM_LENGTH = 8;
     private string $value;
     private MessageBag $errors;
 
+    private const ERROR_MESSAGE = 'Password has to have: at least one lowercase letter *'.
+                                  ' at least one uppercase letter * at least one number *'.
+                                  ' at least one special character * total length between 8 and 16';
     public function __construct(string $value)
     {
         $this->errors = new MessageBagConcrete();
@@ -24,22 +25,19 @@ class PasswordValidator implements Validator
         // TODO: Implement getMessageBag() method.
     }
 
-    public function validate()
+    public function validate(): array
     {
-        if (strlen($this->value) < self::MINIMUM_LENGTH) {
-            $this->errors->add('value', 'Password too short');
-        }
-
-        if (!preg_match('#[0-9]+#', $this->value)) {
-            $this->errors->add('value', 'Password must include at least one number');
-        }
-
-        if (!preg_match('#[a-zA-Z]+#', $this->value)) {
-            $this->errors->add('value', 'Password must include at least one letter');
-        }
-
-        if (!preg_match('/[\'\/~`\!@#\$%\^&\*\(\)_\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/', $this->value)) {
-            $this->errors->add('value', 'Password must include at least one special character');
+        /**
+         * ^                 --> start of string
+         * (?=.*[a-z])       --> at least one lowercase letter
+         * (?=.*[A-Z])       --> at least one uppercase letter
+         * (?=.*[0-9)        --> at least one number
+         * (?=.*[!@#$%^&*-]) --> at least one special character
+         * {8,20}            --> total length between 8 and 20
+         * $                 --> end of string
+         */
+        if (!preg_match('/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z]).{8,20}$/', $this->value)) {
+            $this->errors->add('password', self::ERROR_MESSAGE);
         }
 
         return $this->errors->toArray();
@@ -82,6 +80,5 @@ class PasswordValidator implements Validator
     public function errors(): MessageBag
     {
         return $this->errors;
-        // TODO: Implement errors() method.
     }
 }
