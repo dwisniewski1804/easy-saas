@@ -9,8 +9,6 @@ use App\Models\User;
 use App\Models\ValueObjects\Password;
 use Illuminate\Http\Request;
 
-
-
 class CreateUserModel implements \Serializable, ValidatableInterface, TransformableToModelInterface
 {
     private string $email;
