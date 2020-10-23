@@ -2,10 +2,9 @@
 
 namespace App\Models\ValueObjects\Validation;
 
-use Illuminate\Contracts\Support\MessageBag;
+use Illuminate\Support\MessageBag;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Fluent;
-use Illuminate\Support\MessageBag as MessageBagConcrete;
 
 class PasswordValidator implements Validator
 {
@@ -17,13 +16,13 @@ class PasswordValidator implements Validator
                                   ' at least one special character * total length between 8 and 16';
     public function __construct(string $value)
     {
-        $this->errors = new MessageBagConcrete();
+        $this->errors = new MessageBag();
         $this->value = $value;
     }
 
     public function getMessageBag()
     {
-        // TODO: Implement getMessageBag() method.
+        return $this->errors;
     }
 
     public function validate(): array

@@ -3,10 +3,9 @@
 namespace App\Domains\Admin\Validators;
 
 use App\Domains\Admin\Models\CreateUserModel;
-use Illuminate\Contracts\Support\MessageBag;
+use Illuminate\Support\MessageBag;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Fluent;
-use Illuminate\Support\MessageBag as MessageBagConcrete;
 
 class CreateUserModelValidator implements Validator
 {
@@ -15,7 +14,7 @@ class CreateUserModelValidator implements Validator
 
     public function __construct(CreateUserModel $value)
     {
-        $this->errors = new MessageBagConcrete();
+        $this->errors = new MessageBag();
         $this->value = $value;
     }
 

@@ -58,9 +58,9 @@ class CreateUserModel implements \Serializable, ValidatableInterface, Transforma
     public function transformToModel(): User
     {
         $user = new User();
-        $user->email = $this->email;
-        $user->name = $this->name;
-        $user->password = $this->password->getEncoded();
+        $user->setAttribute('email', $this->email);
+        $user->setAttribute('name',$this->name);
+        $user->setAttribute('password', $this->password->getEncoded());
 
         return $user;
     }

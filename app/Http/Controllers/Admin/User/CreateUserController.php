@@ -42,7 +42,7 @@ class CreateUserController extends Controller
         return new JsonResponse(
             [
                 'message' => 'User has been created.',
-                'data' => ['id' => $user->id],
+                'data' => ['id' => $user->getAttribute('id')],
             ]
         );
     }
