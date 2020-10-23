@@ -19,7 +19,7 @@ class CreateUserModel implements \Serializable, ValidatableInterface, Transforma
 
     /**
      * CreateUserModel constructor.
-     * @throws NotStrongEnoughPasswordException
+     * @throws NotStrongEnoughPasswordException|EmailIsTheSameAsNameException
      */
     public function __construct(Request $request)
     {
@@ -45,22 +45,22 @@ class CreateUserModel implements \Serializable, ValidatableInterface, Transforma
         }
     }
 
-    public function serialize()
+    public function serialize(): ?string
     {
-        // TODO: Implement serialize() method.
+        return serialize($this);
     }
 
     public function unserialize($serialized)
     {
-        return unserialize($serialized, []);
+        unserialize($serialized, []);
     }
 
     public function transformToModel(): User
     {
         $user = new User();
-        $user->email = $this->email;
-        $user->name = $this->name;
-        $user->password = $this->password->getEncoded();
+        $user->setAttribute('email', $this->email);
+        $user->setAttribute('name', $this->name);
+        $user->setAttribute('password', $this->password->getEncoded());
 
         return $user;
     }

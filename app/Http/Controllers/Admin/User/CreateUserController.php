@@ -24,7 +24,7 @@ class CreateUserController extends Controller
         $this->userCreator = $creator;
     }
 
-    public function create(Request $request)
+    public function create(Request $request): Response
     {
         try {
             $this->validate($request, $this->rules);
@@ -42,7 +42,7 @@ class CreateUserController extends Controller
         return new JsonResponse(
             [
                 'message' => 'User has been created.',
-                'data' => ['id' => $user->id],
+                'data' => ['id' => $user->getAttribute('id')],
             ]
         );
     }

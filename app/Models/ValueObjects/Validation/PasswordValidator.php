@@ -2,9 +2,9 @@
 
 namespace App\Models\ValueObjects\Validation;
 
-use Illuminate\Contracts\Support\MessageBag;
+use Illuminate\Support\MessageBag;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\MessageBag as MessageBagConcrete;
+use Illuminate\Support\Fluent;
 
 class PasswordValidator implements Validator
 {
@@ -16,13 +16,13 @@ class PasswordValidator implements Validator
                                   ' at least one special character * total length between 8 and 16';
     public function __construct(string $value)
     {
-        $this->errors = new MessageBagConcrete();
+        $this->errors = new MessageBag();
         $this->value = $value;
     }
 
     public function getMessageBag()
     {
-        // TODO: Implement getMessageBag() method.
+        return $this->errors;
     }
 
     public function validate(): array
@@ -43,28 +43,28 @@ class PasswordValidator implements Validator
         return $this->errors->toArray();
     }
 
-    public function validated()
+    public function validated(): array
     {
-        // TODO: Implement validated() method.
+        return [];
     }
 
-    public function fails()
+    public function fails(): bool
     {
-        // TODO: Implement fails() method.
+        return $this->errors->count() !== 0;
     }
 
     public function failed()
     {
-        // TODO: Implement failed() method.
+        return [];
     }
 
     public function sometimes($attribute, $rules, callable $callback)
     {
-        $payload = new Fluent($this->value);
+        $payload = new Fluent([$this->value]);
 
         if ($callback($payload)) {
             foreach ((array) $attribute as $key) {
-                $this->errors->add($key, $rules);
+                $this->errors->add($key, is_array($rules) ? implode(',', $rules) : $rules);
             }
         }
 
@@ -73,7 +73,8 @@ class PasswordValidator implements Validator
 
     public function after($callback)
     {
-        $callback();
+        $callback = null;
+
         return $this;
     }
 
