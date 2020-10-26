@@ -5,17 +5,19 @@ namespace App\Domains\Admin\Models;
 use App\Domains\Admin\Exceptions\EmailIsTheSameAsNameException;
 use App\Domains\Admin\Validators\CreateUserModelValidator;
 use App\Exceptions\ValueObjects\NotStrongEnoughPasswordException;
+use App\Models\Enums\UserRolesEnums;
 use App\Models\User;
 use App\Models\ValueObjects\Password;
 use Illuminate\Http\Request;
 
-class CreateUserModel implements \Serializable, ValidatableInterface, TransformableToModelInterface
+class UserModel implements \Serializable, ValidatableInterface, TransformableToModelInterface
 {
-    private string $email;
-    private string $name;
-
-    private Password $password;
-    private CreateUserModelValidator $validator;
+    protected string $email;
+    protected string $name;
+    protected array $roles;
+    protected Password $password;
+    protected CreateUserModelValidator $validator;
+    protected User $userEntity;
 
     /**
      * CreateUserModel constructor.
@@ -23,18 +25,25 @@ class CreateUserModel implements \Serializable, ValidatableInterface, Transforma
      */
     public function __construct(Request $request)
     {
+        $this->setUserEntity();
         $this->validator = new CreateUserModelValidator($this);
         $this->createFromRequest($request);
         $this->validate();
     }
 
+    protected function setUserEntity()
+    {
+        $this->userEntity = new User;
+    }
+
     /**
      * @throws NotStrongEnoughPasswordException
      */
-    private function createFromRequest(Request $request): void
+    protected function createFromRequest(Request $request): void
     {
         $this->email = $request->get('email');
         $this->name = $request->get('name');
+        $this->roles = $request->get('roles') ?? [UserRolesEnums::ROLE_USER];
         $this->password = new Password($request->get('password'));
     }
 
@@ -57,12 +66,12 @@ class CreateUserModel implements \Serializable, ValidatableInterface, Transforma
 
     public function transformToModel(): User
     {
-        $user = new User();
-        $user->setAttribute('email', $this->email);
-        $user->setAttribute('name', $this->name);
-        $user->setAttribute('password', $this->password->getEncoded());
+        $this->userEntity->setAttribute('email', $this->email);
+        $this->userEntity->setAttribute('name', $this->name);
+        $this->userEntity->setAttribute('password', $this->password->getEncoded());
+        $this->userEntity->setAttribute('roles', $this->roles);
 
-        return $user;
+        return $this->userEntity;
     }
 
     public function getEmail(): string
@@ -78,5 +87,13 @@ class CreateUserModel implements \Serializable, ValidatableInterface, Transforma
     public function getPassword(): Password
     {
         return $this->password;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoles(): array
+    {
+        return $this->roles;
     }
 }

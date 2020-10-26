@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Enums\UserRolesEnums;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements ModelInterface
 {
+    public const TABLE_NAME = 'users';
+
     use HasFactory, Notifiable;
 
     /**
@@ -19,6 +22,7 @@ class User extends Authenticatable implements ModelInterface
         'name',
         'email',
         'password',
+        'roles'
     ];
 
     /**
@@ -38,5 +42,11 @@ class User extends Authenticatable implements ModelInterface
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'roles' => 'array'
     ];
+
+    public function isSuperAdmin()
+    {
+        return in_array(UserRolesEnums::ROLE_SUPER_ADMIN, $this->getAttribute('roles'), true);
+    }
 }
