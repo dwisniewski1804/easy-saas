@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Http\Controllers\Admin\User;
 
 use App\Models\Enums\UserRolesEnums;
 use App\Models\User;
@@ -71,7 +71,7 @@ class CreateUserControllerTest extends TestCase
     /**
      * Test if controller action is able to throw the validation exception from controller
      */
-    public function testIfItCanThrowControllerValidationException(): void
+    public function testIfItCanThrowControllerValidationProblem(): void
     {
         $response = $this->post('api/admin/user', [
             'email' => 'contact@dwisniewski.com',
@@ -84,7 +84,7 @@ class CreateUserControllerTest extends TestCase
     /**
      * Test if controller action is able to throw an exception from PasswordValidator
      */
-    public function testIfItCanThrowPasswordValidationException(): void
+    public function testIfItCanThrowPasswordValidationProblem(): void
     {
         $response = $this->post('api/admin/user', [
             'email' => 'contact@dwisniewski.com',
@@ -98,7 +98,7 @@ class CreateUserControllerTest extends TestCase
     /**
      * Test if controller action is able to throw an exception from PasswordValidator
      */
-    public function testIfItCanThrowSameEmailAndNameValidationException(): void
+    public function testIfItCanThrowSameEmailAndNameValidationProblem(): void
     {
         $response = $this->post('api/admin/user', [
             'email' => 'contact@dwisniewski.com',

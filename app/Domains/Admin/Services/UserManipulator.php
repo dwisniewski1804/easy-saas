@@ -36,4 +36,9 @@ class UserManipulator
 
         return $this->userRepository->save($user);
     }
+
+    public function delete(User $user)
+    {
+        $this->userRepository->delete($user);
+    }
 }
