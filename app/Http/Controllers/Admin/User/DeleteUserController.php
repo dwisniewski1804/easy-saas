@@ -16,7 +16,7 @@ class DeleteUserController
         $this->userManipulator = $creator;
     }
 
-    public function delete(User $user)
+    public function delete(User $user): Response
     {
         try {
             $this->userManipulator->delete($user);
