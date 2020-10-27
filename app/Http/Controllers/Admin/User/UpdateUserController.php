@@ -1,18 +1,19 @@
 <?php
 
+
 namespace App\Http\Controllers\Admin\User;
 
 use App\Domains\Admin\Services\UserManipulator;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateUserController extends Controller
+class UpdateUserController extends Controller
 {
-    private UserManipulator $userCreator;
+    private UserManipulator $userManipulator;
 
     private array $rules = [
         'name' => 'required',
@@ -22,14 +23,14 @@ class CreateUserController extends Controller
 
     public function __construct(UserManipulator $creator)
     {
-        $this->userCreator = $creator;
+        $this->userManipulator = $creator;
     }
 
-    public function create(Request $request): Response
+    public function update(User $user, Request $request): Response
     {
         try {
             $this->validate($request, $this->rules);
-            $user = $this->userCreator->create($request);
+            $user = $this->userManipulator->update($user, $request);
         } catch (ValidationException  $e) {
             return new JsonResponse(
                 [
@@ -42,10 +43,10 @@ class CreateUserController extends Controller
 
         return new JsonResponse(
             [
-                'message' => 'User has been created.',
+                'message' => 'User has been updated.',
                 'data' => ['id' => $user->getAttribute('id')],
             ],
-            Response::HTTP_CREATED
+            Response::HTTP_OK
         );
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\User\CreateUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,11 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-/**
- * Admin routes.
- */
-Route::prefix('admin')->group(function () {
-    Route::post('user', [CreateUserController::class, 'create']);
 });
