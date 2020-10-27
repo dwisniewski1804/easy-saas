@@ -15,4 +15,9 @@ class UserPolicy
     {
         return $editedUser === $userLoggedIn || $userLoggedIn->isSuperAdmin();
     }
+
+    public function delete(User $userLoggedIn): bool
+    {
+        return $userLoggedIn->isSuperAdmin();
+    }
 }

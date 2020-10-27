@@ -12,4 +12,10 @@ class UserRepository
 
         return $user;
     }
+
+    public function delete(User $user): void
+    {
+        // TODO check if it can be deleted or not
+        $user->delete();
+    }
 }

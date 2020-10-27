@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Http\Controllers\Admin\User;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
-class UpdateUserControllerTest extends TestCase
+class DeleteUserControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -20,17 +20,13 @@ class UpdateUserControllerTest extends TestCase
     /**
      * Test if controller action is able to create User entity.
      */
-    public function testIfItCanCreateUser(): void
+    public function testIfItCanDeleteUser(): void
     {
-        // TODO make it work
         $this->withoutExceptionHandling();
-        $updatedName ='test';
-        $response = $this->put('api/admin/user/2', [
-            'email' => 'contact@dwisniewski.com',
-            'name' => $updatedName,
-            'password' => 'Example123@']);
+        $count = User::all()->count();
+        $response = $this->delete('api/admin/user/2');
 
-        self::assertEquals($updatedName, User::all()->last()->name);
+        self::assertEquals($count -1, User::all()->count());
         $response->assertStatus(Response::HTTP_OK);
     }
 }
