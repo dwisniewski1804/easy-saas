@@ -40,14 +40,14 @@ Easy-SaaS is a singleton of any SaaS application. You can clone the repository a
 
 ## Easy-SaaS Sponsors
 
-If You would like to donate our framework please contact with Damian Wiśniewski via [contact@dwisniewski.com](mailto:contac@dwisniewski.com)
+If You would like to donate our framework please contact with Damian Wiśniewski via [contact@dwisniewski.com](mailto:contact@dwisniewski.com)
 ## Contributing
 
 Thank you for considering contributing to the Easy-SaaS!
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability please contact with me (Damian Wiśniewski) by email via [contact@dwisniewski.com](mailto:contac@dwisniewski.com).
+If you discover a security vulnerability please contact with me (Damian Wiśniewski) by email via [contact@dwisniewski.com](mailto:contact@dwisniewski.com).
 All security vulnerabilities will be promptly addressed.
 
 ## License
