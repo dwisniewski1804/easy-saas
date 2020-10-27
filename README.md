@@ -1,3 +1,4 @@
+## Built with Laravel framework
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
@@ -7,55 +8,48 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About Easy-SaaS
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Easy-SaaS is laravel-based SaaS (Software as a service) application with following features:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Admin panel
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Our plan is to have:
+- User (client account): register, login. google/fb/li login, confirmation, reset password
+- Plans  - You can prepare plans for Your customers with different prices and features
+- Security issues - stay secure with Your users data
+- Payments - integrations, access data, payments log, manuał payments 
+- User tracking - mouse movement, events log, visited pages, password history
+- Reviews - users can leave an opinion about the application
+- Stats and reports
+- Landing page creator 
+- Emails notifications- template and events with users notifications
+- Helpdesk - chat with Your clients 
+- Roadmaps - plan Your growth 
+- Invoice generator
+- Errors reporting with emails
+- Tutorials about the application
+- Social sites connections
+- Notifications - notify Your users by push messages, web notifications, SMS, emails
+- Database changelog
 
-## Learning Laravel
+included in the framework. 
+## Clone and go
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Easy-SaaS is a singleton of any SaaS application. You can clone the repository and develop it for Your commercial, or not commercial use. You will not worry about any basic features like Admin panel or payments. All that You have to care about is Your business domain. Good luck!
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Easy-SaaS Sponsors
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
-
+If You would like to donate our framework please contact with Damian Wiśniewski via [contact@dwisniewski.com](mailto:contac@dwisniewski.com)
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Thank you for considering contributing to the Easy-SaaS!
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability please contact with me (Damian Wiśniewski) by email via [contact@dwisniewski.com](mailto:contac@dwisniewski.com).
+All security vulnerabilities will be promptly addressed.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Easy-SaaS framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
