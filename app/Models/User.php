@@ -45,7 +45,7 @@ class User extends Authenticatable implements ModelInterface
         'roles' => 'array'
     ];
 
-    public function isSuperAdmin()
+    public function isSuperAdmin(): bool
     {
         return in_array(UserRolesEnums::ROLE_SUPER_ADMIN, $this->getAttribute('roles'), true);
     }

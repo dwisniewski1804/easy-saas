@@ -31,8 +31,13 @@ class UserModel implements \Serializable, ValidatableInterface, TransformableToM
         $this->validate();
     }
 
-    protected function setUserEntity()
+    protected function setUserEntity(User $user = null): void
     {
+        if ($user) {
+            $this->userEntity = $user;
+            return;
+        }
+
         $this->userEntity = new User;
     }
 

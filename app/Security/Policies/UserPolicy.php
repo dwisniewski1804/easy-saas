@@ -6,12 +6,12 @@ use App\Models\User;
 
 class UserPolicy
 {
-    public function create(User $userLoggedIn)
+    public function create(User $userLoggedIn): bool
     {
         return $userLoggedIn->isSuperAdmin();
     }
 
-    public function update(User $userLoggedIn, User $editedUser)
+    public function update(User $userLoggedIn, User $editedUser): bool
     {
         return $editedUser === $userLoggedIn || $userLoggedIn->isSuperAdmin();
     }
