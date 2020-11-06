@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions\ValueObjects;
+namespace App\Domain\ValueObjects\Exceptions;
 
 use Illuminate\Validation\ValidationException;
 

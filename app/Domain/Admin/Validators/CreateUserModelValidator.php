@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domains\Admin\Validators;
+namespace App\Domain\Admin\Validators;
 
-use App\Domains\Admin\Models\UserModel;
+use App\Domain\Admin\Models\UserModel;
 use Illuminate\Support\MessageBag;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Fluent;
@@ -26,7 +26,7 @@ class CreateUserModelValidator implements Validator
     public function validate()
     {
         if ($this->value->getEmail() === $this->value->getName()) {
-            $this->errors->add('value', 'Password too short');
+            $this->errors->add('email', 'Email can not be the same as username');
         }
         return $this->errors->toArray();
     }

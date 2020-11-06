@@ -17,7 +17,7 @@ class CreateUserControllerTest extends TestCase
      */
     public function testIfItCanCreateUser(): void
     {
-        $response = $this->postJson('api/admin/user', [
+        $response = $this->postJson('api/admin/users', [
             'email' => 'contact@dwisniewski.com',
             'name' => 'dwisniewski',
             'roles' => ['user'],
@@ -37,7 +37,7 @@ class CreateUserControllerTest extends TestCase
      */
     public function testIfItCanCreateDefaultUserRole(): void
     {
-        $response = $this->post('api/admin/user', [
+        $response = $this->post('api/admin/users', [
             'email' => 'contact@dwisniewski.com',
             'name' => 'dwisniewski',
             'password' => 'Example123#']);
@@ -55,7 +55,7 @@ class CreateUserControllerTest extends TestCase
         $adminUser = User::factory()->create(['roles' => ['user']]);
         $this->actingAs($adminUser, 'api');
 
-        $response = $this->postJson('api/admin/user', [
+        $response = $this->postJson('api/admin/users', [
             'email' => 'contact@dwisniewski.com',
             'name' => 'dwisniewski',
             'roles' => ['user'],
@@ -73,7 +73,7 @@ class CreateUserControllerTest extends TestCase
      */
     public function testIfItCanThrowControllerValidationProblem(): void
     {
-        $response = $this->post('api/admin/user', [
+        $response = $this->post('api/admin/users', [
             'email' => 'contact@dwisniewski.com',
             'password' => 'Example123']);
 
@@ -86,7 +86,7 @@ class CreateUserControllerTest extends TestCase
      */
     public function testIfItCanThrowPasswordValidationProblem(): void
     {
-        $response = $this->post('api/admin/user', [
+        $response = $this->post('api/admin/users', [
             'email' => 'contact@dwisniewski.com',
             'name' => 'dwisniewski1804',
             'password' => 'Example123']);
@@ -100,7 +100,7 @@ class CreateUserControllerTest extends TestCase
      */
     public function testIfItCanThrowSameEmailAndNameValidationProblem(): void
     {
-        $response = $this->post('api/admin/user', [
+        $response = $this->post('api/admin/users', [
             'email' => 'contact@dwisniewski.com',
             'name' => 'contact@dwisniewski.com',
             'password' => 'Example123#']);
@@ -116,7 +116,7 @@ class CreateUserControllerTest extends TestCase
     {
         $existingUser = User::factory()->create();
 
-        $response = $this->post('api/admin/user', [
+        $response = $this->post('api/admin/users', [
             'email' => $existingUser->getAttribute('email'),
             'name' => 'contact@dwisniewski.com',
             'password' => 'Example123#']);

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\ValueObjects;
+namespace App\Domain\ValueObjects;
 
-use App\Exceptions\ValueObjects\NotStrongEnoughPasswordException;
-use App\Models\ValueObjects\Validation\PasswordValidator;
+use App\Domain\ValueObjects\Validation\PasswordValidator;
+use App\Domain\ValueObjects\Exceptions\NotStrongEnoughPasswordException;
 use Illuminate\Support\Facades\Hash;
 
 class Password

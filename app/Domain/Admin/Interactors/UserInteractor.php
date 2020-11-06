@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Domains\Admin\Services;
+namespace App\Domain\Admin\Interactors;
 
-use App\Domains\Admin\Models\UpdateUserModel;
-use App\Domains\Admin\Models\UserModel;
+use App\Domain\DomainInputBagInterface;
+use App\Domain\Admin\Models\UpdateUserModel;
+use App\Domain\Admin\Models\UserModel;
 use App\Models\User;
 use App\Repository\UserRepository;
-use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
-class UserManipulator
+class UserInteractor
 {
     private UserRepository $userRepository;
 
@@ -21,17 +22,17 @@ class UserManipulator
     /**
      * @throws ValidationException
      */
-    public function create(Request $request): User
+    public function create(DomainInputBagInterface $input): User
     {
-        $model = new UserModel($request);
+        $model = new UserModel($input);
         $user = $model->transformToModel();
 
         return $this->userRepository->save($user);
     }
 
-    public function update(User $user, Request $request): User
+    public function update(User $user, DomainInputBagInterface $input): User
     {
-        $model = new UpdateUserModel($user, $request);
+        $model = new UpdateUserModel($user, $input);
         $user = $model->transformToModel();
 
         return $this->userRepository->save($user);

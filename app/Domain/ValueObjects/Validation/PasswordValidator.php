@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\ValueObjects\Validation;
+namespace App\Domain\ValueObjects\Validation;
 
 use Illuminate\Support\MessageBag;
 use Illuminate\Contracts\Validation\Validator;

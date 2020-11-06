@@ -12,6 +12,7 @@ abstract class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->withExceptionHandling();
         $adminUser = User::factory()->create();
         $this->actingAs($adminUser, 'api');
     }

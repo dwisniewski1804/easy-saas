@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers\Admin\User;
 
-use App\Domains\Admin\Services\UserManipulator;
+use App\Domain\Admin\Interactors\UserInteractor;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class DeleteUserController
 {
-    private UserManipulator $userManipulator;
+    private UserInteractor $userInteractor;
 
-    public function __construct(UserManipulator $creator)
+    public function __construct(UserInteractor $interactor)
     {
-        $this->userManipulator = $creator;
+        $this->userInteractor = $interactor;
     }
 
     public function delete(User $user): Response
     {
         try {
-            $this->userManipulator->delete($user);
+            $this->userInteractor->delete($user);
         } catch (\Exception  $e) {
             return new JsonResponse(
                 [

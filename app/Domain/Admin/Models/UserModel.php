@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Domains\Admin\Models;
+namespace App\Domain\Admin\Models;
 
-use App\Domains\Admin\Exceptions\EmailIsTheSameAsNameException;
-use App\Domains\Admin\Validators\CreateUserModelValidator;
-use App\Exceptions\ValueObjects\NotStrongEnoughPasswordException;
+use App\Domain\DomainInputBagInterface;
+use App\Domain\ValueObjects\Password;
+use App\Domain\Admin\Exceptions\EmailIsTheSameAsNameException;
+use App\Domain\Admin\Validators\CreateUserModelValidator;
+use App\Domain\ValueObjects\Exceptions\NotStrongEnoughPasswordException;
 use App\Models\Enums\UserRolesEnums;
 use App\Models\User;
-use App\Models\ValueObjects\Password;
-use Illuminate\Http\Request;
 
 class UserModel implements \Serializable, ValidatableInterface, TransformableToModelInterface
 {
@@ -23,11 +23,11 @@ class UserModel implements \Serializable, ValidatableInterface, TransformableToM
      * CreateUserModel constructor.
      * @throws NotStrongEnoughPasswordException|EmailIsTheSameAsNameException
      */
-    public function __construct(Request $request)
+    public function __construct(DomainInputBagInterface $input)
     {
         $this->setUserEntity();
         $this->validator = new CreateUserModelValidator($this);
-        $this->createFromRequest($request);
+        $this->createFromRequest($input);
         $this->validate();
     }
 
@@ -42,12 +42,12 @@ class UserModel implements \Serializable, ValidatableInterface, TransformableToM
     }
 
     /**
-     * @throws NotStrongEnoughPasswordException
+     * @param DomainInputBagInterface $request
      */
-    protected function createFromRequest(Request $request): void
+    protected function createFromRequest(DomainInputBagInterface $request): void
     {
-        $this->email = $request->get('email');
-        $this->name = $request->get('name');
+        $this->email = (string) $request->get('email');
+        $this->name = (string) $request->get('name');
         $this->roles = $request->get('roles') ?? [UserRolesEnums::ROLE_USER];
         $this->password = new Password($request->get('password'));
     }
