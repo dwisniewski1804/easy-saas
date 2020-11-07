@@ -2,17 +2,17 @@
 
 namespace App\Domain\Admin\Validators;
 
-use App\Domain\Admin\Models\UserModel;
+use App\Domain\Admin\Entities\UserEntity;
 use Illuminate\Support\MessageBag;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Fluent;
 
 class CreateUserModelValidator implements Validator
 {
-    private UserModel $value;
+    private UserEntity $value;
     private MessageBag $errors;
 
-    public function __construct(UserModel $value)
+    public function __construct(UserEntity $value)
     {
         $this->errors = new MessageBag();
         $this->value = $value;

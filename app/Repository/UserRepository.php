@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Domain\Repositories\UserRepositoryInterface;
 use App\Models\User;
 
-class UserRepository
+class UserRepository implements UserRepositoryInterface
 {
     public function save(User $user): User
     {

@@ -3,8 +3,9 @@
 namespace App\Domain\Admin\Interactors;
 
 use App\Domain\DomainInputBagInterface;
-use App\Domain\Admin\Models\UpdateUserModel;
-use App\Domain\Admin\Models\UserModel;
+use App\Domain\Admin\Entities\UpdateUserEntity;
+use App\Domain\Admin\Entities\UserEntity;
+use App\Domain\Repositories\UserRepositoryInterface;
 use App\Models\User;
 use App\Repository\UserRepository;
 use Illuminate\Validation\ValidationException;
@@ -12,19 +13,21 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 class UserInteractor
 {
-    private UserRepository $userRepository;
+    private UserRepositoryInterface $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
-    /**
-     * @throws ValidationException
-     */
+    public function list(DomainInputBagInterface $input)
+    {
+        $this->userRepository;
+    }
+
     public function create(DomainInputBagInterface $input): User
     {
-        $model = new UserModel($input);
+        $model = new UserEntity($input);
         $user = $model->transformToModel();
 
         return $this->userRepository->save($user);
@@ -32,7 +35,7 @@ class UserInteractor
 
     public function update(User $user, DomainInputBagInterface $input): User
     {
-        $model = new UpdateUserModel($user, $input);
+        $model = new UpdateUserEntity($user, $input);
         $user = $model->transformToModel();
 
         return $this->userRepository->save($user);

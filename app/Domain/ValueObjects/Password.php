@@ -13,8 +13,17 @@ class Password
 
     public function __construct(string $value)
     {
-        $this->validator = new PasswordValidator($value);
+        $this->setValidator($value);
+        $this->setValue($value);
+    }
 
+    private function setValidator(string $value): void
+    {
+        $this->validator = new PasswordValidator($value);
+    }
+
+    private function setValue(string $value): void
+    {
         if (!$this->checkStrength()) {
             throw new NotStrongEnoughPasswordException($this->validator);
         }

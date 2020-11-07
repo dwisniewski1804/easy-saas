@@ -20,4 +20,9 @@ class UserPolicy
     {
         return $userLoggedIn->isSuperAdmin();
     }
+
+    public function list(User $userLoggedIn): bool
+    {
+        return $userLoggedIn->isSuperAdmin();
+    }
 }

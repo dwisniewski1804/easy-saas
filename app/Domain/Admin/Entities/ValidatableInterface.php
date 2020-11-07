@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Admin\Models;
+namespace App\Domain\Admin\Entities;
 
 interface ValidatableInterface
 {

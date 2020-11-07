@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domain\Admin\Models;
+namespace App\Domain\Admin\Entities;
 
 use App\Domain\DomainInputBagInterface;
 use App\Models\User;
 
-class UpdateUserModel extends UserModel
+class UpdateUserEntity extends UserEntity
 {
     public function __construct(User $user, DomainInputBagInterface $input)
     {

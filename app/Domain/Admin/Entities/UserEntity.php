@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Domain\Admin\Models;
+namespace App\Domain\Admin\Entities;
 
 use App\Domain\DomainInputBagInterface;
 use App\Domain\ValueObjects\Password;
 use App\Domain\Admin\Exceptions\EmailIsTheSameAsNameException;
 use App\Domain\Admin\Validators\CreateUserModelValidator;
-use App\Domain\ValueObjects\Exceptions\NotStrongEnoughPasswordException;
 use App\Models\Enums\UserRolesEnums;
 use App\Models\User;
 
-class UserModel implements \Serializable, ValidatableInterface, TransformableToModelInterface
+class UserEntity implements \Serializable, ValidatableInterface, TransformableToModelInterface
 {
     protected string $email;
     protected string $name;
@@ -21,7 +20,7 @@ class UserModel implements \Serializable, ValidatableInterface, TransformableToM
 
     /**
      * CreateUserModel constructor.
-     * @throws NotStrongEnoughPasswordException|EmailIsTheSameAsNameException
+     * @throws EmailIsTheSameAsNameException
      */
     public function __construct(DomainInputBagInterface $input)
     {
@@ -41,9 +40,6 @@ class UserModel implements \Serializable, ValidatableInterface, TransformableToM
         $this->userEntity = new User;
     }
 
-    /**
-     * @param DomainInputBagInterface $request
-     */
     protected function createFromRequest(DomainInputBagInterface $request): void
     {
         $this->email = (string) $request->get('email');
@@ -64,9 +60,9 @@ class UserModel implements \Serializable, ValidatableInterface, TransformableToM
         return serialize($this);
     }
 
-    public function unserialize($serialized)
+    public function unserialize($serialized): array
     {
-        unserialize($serialized, []);
+        return unserialize($serialized, []);
     }
 
     public function transformToModel(): User
@@ -94,9 +90,6 @@ class UserModel implements \Serializable, ValidatableInterface, TransformableToM
         return $this->password;
     }
 
-    /**
-     * @return array
-     */
     public function getRoles(): array
     {
         return $this->roles;
