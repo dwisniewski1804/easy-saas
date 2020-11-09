@@ -4,7 +4,9 @@ namespace App\Exceptions;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Psy\Util\Json;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -38,12 +40,12 @@ class Handler extends ExceptionHandler
         //
     }
 
-    public function render($request, Throwable $e)
+    public function render($request, Throwable $exception)
     {
-        if ($e instanceof ModelNotFoundException) {
-            return response()->json([], Response::HTTP_NOT_FOUND);
+        if ($exception instanceof ModelNotFoundException) {
+            return new JsonResponse([], Response::HTTP_NOT_FOUND);
         }
 
-        return parent::render($request, $e);
+        return parent::render($request, $exception);
     }
 }
