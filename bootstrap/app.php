@@ -11,6 +11,9 @@
 |
 */
 
+use App\Domain\Repositories\UserRepositoryInterface;
+use App\Repository\UserRepository;
+
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
@@ -40,7 +43,10 @@ $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
 );
-
+$app->bind(
+    UserRepositoryInterface::class,
+    UserRepository::class
+);
 /*
 |--------------------------------------------------------------------------
 | Return The Application

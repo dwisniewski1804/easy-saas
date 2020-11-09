@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin\User;
 
-use App\Domains\Admin\Services\UserManipulator;
+use App\Domain\Admin\Interactors\UserInteractor;
+use App\Domain\ValueObjects\DomainInputBag;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CreateUserController extends Controller
 {
-    private UserManipulator $userCreator;
+    private UserInteractor $userInteractor;
 
     private array $rules = [
         'name' => 'required',
@@ -20,21 +21,21 @@ class CreateUserController extends Controller
         'password' => 'required',
     ];
 
-    public function __construct(UserManipulator $creator)
+    public function __construct(UserInteractor $interactor)
     {
-        $this->userCreator = $creator;
+        $this->userInteractor = $interactor;
     }
 
     public function create(Request $request): Response
     {
         try {
             $this->validate($request, $this->rules);
-            $user = $this->userCreator->create($request);
-        } catch (ValidationException  $e) {
+            $user = $this->userInteractor->create(new DomainInputBag($request->toArray()));
+        } catch (ValidationException  $exception) {
             return new JsonResponse(
                 [
                     'message' => 'Validation error',
-                    'data' => ['errors' => $e->errors()],
+                    'data' => ['errors' => $exception->errors()],
                 ],
                 Response::HTTP_BAD_REQUEST
             );

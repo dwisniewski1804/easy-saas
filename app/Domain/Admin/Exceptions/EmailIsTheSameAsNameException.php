@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Admin\Exceptions;
+namespace App\Domain\Admin\Exceptions;
 
 use Illuminate\Validation\ValidationException;
 

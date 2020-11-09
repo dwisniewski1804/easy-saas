@@ -23,12 +23,22 @@ class UpdateUserControllerTest extends TestCase
     public function testIfItCanUpdateUsername(): void
     {
         $updatedName = 'test';
-        $response = $this->put('api/admin/user/2', [
+        $response = $this->put('api/admin/users/2', [
             'email' => 'contact@dwisniewski.com',
             'name' => $updatedName,
             'password' => 'Example123@']);
 
         self::assertEquals($updatedName, User::all()->last()->name);
         $response->assertStatus(Response::HTTP_OK);
+    }
+
+    /**
+     * Test if controller action is able to throw NOT_FOUND when user does not exist.
+     */
+    public function testIfItCanDeleteNotExistingUser(): void
+    {
+        $response = $this->put('api/admin/users/5');
+
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 }

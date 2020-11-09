@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\Domain\Repositories\UserRepositoryInterface;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class UserRepository
+class UserRepository implements UserRepositoryInterface
 {
     public function save(User $user): User
     {
@@ -15,7 +18,27 @@ class UserRepository
 
     public function delete(User $user): void
     {
-        // TODO check if it can be deleted or not
         $user->delete();
+    }
+
+    public function list(array $criteria, int $page, int $perPage): array
+    {
+        $this->checkIfPageIsNotOutOfRange($page, $perPage);
+        $paginator =  DB::table(User::TABLE_NAME)->paginate($perPage, $criteria, 'page', $page);
+
+        return $paginator->toArray();
+    }
+
+    public function get(User $user): User
+    {
+        return $user;
+    }
+
+    private function checkIfPageIsNotOutOfRange(int $page, int $perPage): void
+    {
+        $count = DB::table(User::TABLE_NAME)->count();
+        if ($page * $perPage - $perPage > $count) {
+            throw new NotFoundHttpException();
+        }
     }
 }

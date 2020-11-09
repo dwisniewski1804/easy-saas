@@ -2,3 +2,11 @@ grumphp:
     tasks:
         phpcs:
             ignore_patterns: [./resources/*, ./database/*, ./bootstrap/*]
+        phpstan:
+            autoload_file: ~
+            configuration: "./phpstan.neon"
+            level: max
+            triggered_by: [ 'php' ]
+        phpmd:
+            ruleset:
+                - ruleset.xml
