@@ -21,12 +21,15 @@ class UserRepository implements UserRepositoryInterface
         $user->delete();
     }
 
-    public function list(array $criteria, int $page, int $perPage)
+    public function list(array $criteria, int $page, int $perPage): array
     {
         $this->checkIfPageIsNotOutOfRange($page, $perPage);
+        /**
+         *
+         */
         $collection =  DB::table(User::TABLE_NAME)->paginate($perPage, $criteria, 'page', $page);
 
-        return $collection->toArray();
+        return $collection->items();
     }
 
     public function get(User $user): User

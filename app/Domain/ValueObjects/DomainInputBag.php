@@ -3,12 +3,21 @@
 namespace App\Domain\ValueObjects;
 
 use App\Domain\DomainInputBagInterface;
-use Symfony\Component\HttpFoundation\ParameterBag;
 
-class DomainInputBag extends ParameterBag implements DomainInputBagInterface
+class DomainInputBag implements DomainInputBagInterface
 {
+    private array $parameters;
+
     public function __construct(array $parameters = [])
     {
-        parent::__construct($parameters);
+        $this->parameters = $parameters;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function get(string $key, ?string $default = null)
+    {
+        return \array_key_exists($key, $this->parameters) ? $this->parameters[$key] : $default;
     }
 }

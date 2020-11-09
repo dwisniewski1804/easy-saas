@@ -1,5 +1,7 @@
 parameters:
     excludes_analyse:
-            - app/Providers
+      - app/Providers
     ignoreErrors:
+      - '#json_decode#'
+      - '#Possibly invalid array key type array#'
     checkMissingIterableValueType: false
