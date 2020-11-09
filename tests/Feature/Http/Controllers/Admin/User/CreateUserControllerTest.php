@@ -21,11 +21,7 @@ class CreateUserControllerTest extends TestCase
             'email' => 'contact@dwisniewski.com',
             'name' => 'dwisniewski',
             'roles' => ['user'],
-            'password' => 'Example123@'], [
-            'headers' => [
-                'Authorization' => 'Bearer abc',
-                'Accept' => 'application/json',
-            ],]);
+            'password' => 'Example123@']);
 
         $response->assertStatus(Response::HTTP_CREATED);
         $user = User::all()->last();
@@ -59,11 +55,7 @@ class CreateUserControllerTest extends TestCase
             'email' => 'contact@dwisniewski.com',
             'name' => 'dwisniewski',
             'roles' => ['user'],
-            'password' => 'Example123@'], [
-            'headers' => [
-                'Authorization' => 'Bearer abc',
-                'Accept' => 'application/json',
-            ],]);
+            'password' => 'Example123@']);
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }

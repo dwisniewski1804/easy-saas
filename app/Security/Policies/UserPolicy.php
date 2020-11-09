@@ -25,4 +25,10 @@ class UserPolicy
     {
         return $userLoggedIn->isSuperAdmin();
     }
+
+    public function show(User $userLoggedIn, User $editedUser): bool
+    {
+        dump($editedUser);
+        return $userLoggedIn->isSuperAdmin() && !$editedUser->isSuperAdmin();
+    }
 }

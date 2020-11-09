@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Domain\Admin\Interactors\UserInteractor;
-use App\Domain\ValueObjects\DomainInputBag;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ListUsersController
+class ShowUserController
 {
     private UserInteractor $userInteractor;
 
@@ -17,10 +16,10 @@ class ListUsersController
         $this->userInteractor = $interactor;
     }
 
-    public function list(Request $request)
+    public function show(User $user)
     {
         try {
-            $data = $this->userInteractor->list(new DomainInputBag($request->all()));
+            $data = $this->userInteractor->show($user);
             return new JsonResponse(
                 [
                     'message' => 'OK',
@@ -31,8 +30,8 @@ class ListUsersController
         } catch (\Exception $e) {
             return new JsonResponse(
                 [
-                    'message' => 'Listing error',
-                    'data' => [],
+                    'message' => 'Not found',
+                    'data' => null,
                 ],
                 Response::HTTP_NOT_FOUND
             );

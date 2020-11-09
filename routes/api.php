@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\User\CreateUserController;
 use App\Http\Controllers\Admin\User\DeleteUserController;
 use App\Http\Controllers\Admin\User\ListUsersController;
+use App\Http\Controllers\Admin\User\ShowUserController;
 use App\Http\Controllers\Admin\User\UpdateUserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -24,9 +25,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->prefix('admin')->group(function () {
     Route::prefix('users')->group(function () {
         $userModel = User::class;
+        Route::get('/{user}', [ShowUserController::class, 'show'])->middleware('can:show,user');
         Route::get('', [ListUsersController::class, 'list'])->middleware("can:list,${userModel}");
         Route::post('', [CreateUserController::class, 'create'])->middleware("can:create,${userModel}");
-        Route::put('/{user}', [UpdateUserController::class, 'update'])->middleware("can:update,user");
-        Route::delete('/{user}', [DeleteUserController::class, 'delete'])->middleware("can:delete,user");
+        Route::put('/{user}', [UpdateUserController::class, 'update'])->middleware('can:update,user');
+        Route::delete('/{user}', [DeleteUserController::class, 'delete'])->middleware('can:delete,user');
     });
 });

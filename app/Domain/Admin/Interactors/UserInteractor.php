@@ -2,14 +2,11 @@
 
 namespace App\Domain\Admin\Interactors;
 
-use App\Domain\DomainInputBagInterface;
 use App\Domain\Admin\Entities\UpdateUserEntity;
 use App\Domain\Admin\Entities\UserEntity;
+use App\Domain\DomainInputBagInterface;
 use App\Domain\Repositories\UserRepositoryInterface;
 use App\Models\User;
-use App\Repository\UserRepository;
-use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpFoundation\ParameterBag;
 
 class UserInteractor
 {
@@ -20,9 +17,18 @@ class UserInteractor
         $this->userRepository = $userRepository;
     }
 
-    public function list(DomainInputBagInterface $input)
+    public function list(DomainInputBagInterface $input): array
     {
-        $this->userRepository;
+        return $this->userRepository->list(
+            $input->get('criteria') ?? ['*'],
+            (int)($input->get('page') ?? 1),
+            (int)($input->get('perPage') ?? 10)
+        );
+    }
+
+    public function show(User $user): User
+    {
+        return $this->userRepository->get($user);
     }
 
     public function create(DomainInputBagInterface $input): User

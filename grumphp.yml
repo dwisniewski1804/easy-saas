@@ -2,3 +2,5 @@ grumphp:
     tasks:
         phpcs:
             ignore_patterns: [./resources/*, ./database/*, ./bootstrap/*]
+        phpstan:
+        phpmd:
