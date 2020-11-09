@@ -27,8 +27,8 @@ class ListUsersControllerTest extends TestCase
     public function testIfItCanListDefaultPageWithDefaultPerPageValue(): void
     {
         $response = $this->get('api/admin/users');
-
         $jsonContent = json_decode($response->getContent(), true);
+
         $this->assertCount(6, $jsonContent['data']['data']);
         $this->assertEquals(1, $jsonContent['data']['current_page']);
 
@@ -41,19 +41,12 @@ class ListUsersControllerTest extends TestCase
     public function testIfItCanList2ndPageWith2records(): void
     {
         $response = $this->get('api/admin/users?page=2&perPage=2');
-        /**
-         * @var string $content
-         */
-        $content = $response->getContent();
+        $jsonContent = json_decode($response->getContent(), true);
 
-        if ($content) {
-            $jsonContent = json_decode($response->getContent(), true);
+        self::assertCount(2, $jsonContent['data']['data']);
+        self::assertEquals(2, $jsonContent['data']['current_page']);
 
-            self::assertCount(2, $jsonContent['data']['data']);
-            self::assertEquals(2, $jsonContent['data']['current_page']);
-
-            $response->assertStatus(Response::HTTP_OK);
-        }
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**

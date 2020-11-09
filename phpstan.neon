@@ -4,4 +4,5 @@ parameters:
     ignoreErrors:
       - '#json_decode#'
       - '#Possibly invalid array key type array#'
+      - '#Call to an undefined method Illuminate#'
     checkMissingIterableValueType: false

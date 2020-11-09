@@ -24,12 +24,9 @@ class UserRepository implements UserRepositoryInterface
     public function list(array $criteria, int $page, int $perPage): array
     {
         $this->checkIfPageIsNotOutOfRange($page, $perPage);
-        /**
-         *
-         */
-        $collection =  DB::table(User::TABLE_NAME)->paginate($perPage, $criteria, 'page', $page);
+        $paginator =  DB::table(User::TABLE_NAME)->paginate($perPage, $criteria, 'page', $page);
 
-        return $collection->items();
+        return $paginator->toArray();
     }
 
     public function get(User $user): User

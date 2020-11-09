@@ -5,7 +5,7 @@ namespace Http\Controllers\Subscription;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
-class CreateSubscriptionControllerTest extends TestCase
+class CreateSubscriptionController
 {
     use DatabaseMigrations;
 
