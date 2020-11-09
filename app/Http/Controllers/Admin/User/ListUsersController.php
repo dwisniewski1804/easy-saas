@@ -17,7 +17,7 @@ class ListUsersController
         $this->userInteractor = $interactor;
     }
 
-    public function list(Request $request)
+    public function list(Request $request): Response
     {
         try {
             $data = $this->userInteractor->list(new DomainInputBag($request->all()));
@@ -28,7 +28,7 @@ class ListUsersController
                 ],
                 Response::HTTP_OK
             );
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             return new JsonResponse(
                 [
                     'message' => 'Listing error',

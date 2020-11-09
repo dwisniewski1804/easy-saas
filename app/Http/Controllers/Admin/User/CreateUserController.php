@@ -31,11 +31,11 @@ class CreateUserController extends Controller
         try {
             $this->validate($request, $this->rules);
             $user = $this->userInteractor->create(new DomainInputBag($request->toArray()));
-        } catch (ValidationException  $e) {
+        } catch (ValidationException  $exception) {
             return new JsonResponse(
                 [
                     'message' => 'Validation error',
-                    'data' => ['errors' => $e->errors()],
+                    'data' => ['errors' => $exception->errors()],
                 ],
                 Response::HTTP_BAD_REQUEST
             );

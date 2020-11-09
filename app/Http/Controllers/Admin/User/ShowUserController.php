@@ -16,7 +16,7 @@ class ShowUserController
         $this->userInteractor = $interactor;
     }
 
-    public function show(User $user)
+    public function show(User $user): Response
     {
         try {
             $data = $this->userInteractor->show($user);
@@ -27,7 +27,7 @@ class ShowUserController
                 ],
                 Response::HTTP_OK
             );
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             return new JsonResponse(
                 [
                     'message' => 'Not found',

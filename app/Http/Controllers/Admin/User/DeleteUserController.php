@@ -20,11 +20,11 @@ class DeleteUserController
     {
         try {
             $this->userInteractor->delete($user);
-        } catch (\Exception  $e) {
+        } catch (\Exception  $exception) {
             return new JsonResponse(
                 [
                     'message' => 'Deleting error',
-                    'data' => ['errors' => $e->getMessage()],
+                    'data' => ['errors' => $exception->getMessage()],
                 ],
                 Response::HTTP_BAD_REQUEST
             );
